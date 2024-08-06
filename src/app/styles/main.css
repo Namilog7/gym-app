@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background-color: #006acd;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+nav .logo {
+  width: 10%;
+  height: 100%;
+  background-color: #002da1;
+}
+nav div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+nav div p {
+  font-family: "system-ui";
+  font-size: large;
+}
+nav div p:hover {
+  cursor: pointer;
+}
+nav button {
+  height: 50%;
+}
+nav button:hover {
+  cursor: pointer;
+}/*# sourceMappingURL=main.css.map */

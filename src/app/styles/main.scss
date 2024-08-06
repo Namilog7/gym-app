@@ -1,0 +1,90 @@
+$primary-color: #006acd;
+$secondary-color: #002da1;
+$buttons-color: black;
+
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: $primary-color;
+}
+
+nav {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+
+    .content {
+        width: 85%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .logo {
+        width: 10%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        p {
+            font-family: "system-ui";
+            font-size: large;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    }
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    height: 85vh;
+
+    .contenedor {
+        width: 70%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .contenedorbotones {
+            display: flex;
+            gap: 15px;
+        }
+
+        .contenedorbotones>button {
+            height: 50px;
+            width: 100px;
+            border-radius: 10px;
+            border: none;
+            font-size: medium;
+            background-color: $buttons-color;
+            color: white;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .contenedorbotones>button:nth-child(2) {
+            background-color: #002da1;
+        }
+    }
+}
+
+.services {
+    display: flex;
+    justify-content: center;
+}
