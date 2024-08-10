@@ -3,7 +3,6 @@ type Content = {
     entrenamiento: string;
     horario: string;
     nutricion: string
-
 }
 
 export const content: Content = {
