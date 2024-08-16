@@ -1,6 +1,6 @@
-$primary-color: #006acd;
+$primary-color: #0f388b;
 $secondary-color: #07296b;
-$buttons-color: black;
+$padding-sections: 25px;
 
 body {
     margin: 0;
@@ -11,6 +11,11 @@ body {
 
 h2 {
     font-size: 30px;
+}
+
+.titles {
+    font-size: 50px;
+    margin: 0;
 }
 
 nav {
@@ -27,7 +32,7 @@ nav {
     }
 
     .logo {
-        width: 10%;
+        width: max-content;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -60,6 +65,7 @@ header {
     align-items: center;
     height: 100vh;
     z-index: 5;
+    max-height: max-content;
 
     ::before {
         content: "";
@@ -69,16 +75,16 @@ header {
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        background-image: url('https://kalix.club/uploads/posts/2022-12/1671755439_kalix-club-p-oboi-na-telefon-kachalka-pinterest-13.jpg'),
+        background-image: url('https://abc3340.com/resources/media/46e76f16-e11b-40ba-bc58-b90f65b7e1da-jumbo16x9_1280x720_60906P00EPTRK.jpg?1483036561886'),
             radial-gradient(circle, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 100%);
         background-size: cover;
-        mask-image: linear-gradient(black 90%,
+        mask-image: linear-gradient(black 85%,
                 transparent);
         z-index: -5;
-        filter: brightness(0.5);
+        filter: brightness(0.3);
     }
 
-    .contenedor {
+    .contenedorheader {
         width: 100%;
         height: 100%;
         display: flex;
@@ -102,17 +108,19 @@ header {
                 justify-content: center;
                 align-items: center;
                 height: 50px;
-                width: 30%;
-                border-radius: 5px;
+                width: 25%;
                 border-style: none;
-                font-size: medium;
+                font-size: large;
                 font-weight: bold;
                 background-color: $secondary-color;
                 color: white;
+                gap: 15px;
 
                 &:hover {
                     cursor: pointer;
                     border-color: $secondary-color;
+                    background-color: $primary-color;
+                    color: white;
                 }
             }
         }
@@ -141,17 +149,32 @@ header {
     }
 }
 
-.services {
+main {
+    width: 97%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.services {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    border: 1px solid white;
+    border-radius: 15px;
     padding-bottom: 40px;
+    margin-bottom: 25px;
 
     .data {
         text-align: center;
-        padding-bottom: 25px;
+        padding: $padding-sections;
     }
 
     .contentCards {
@@ -181,10 +204,99 @@ header {
 }
 
 .footer {
+    margin-top: 50px;
+    border: 1px solid white;
+    background-color: $secondary-color;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: $padding-sections;
+    position: relative;
+
 
     .data {
         text-align: center;
+    }
+
+    .divredes {
+        width: max-content;
+        display: flex;
+        gap: 15px;
+
+        .redes {
+            color: white;
+            border: 1px solid white;
+            padding: 10px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ig {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)
+        }
+
+        .wp {
+            background-color: #25D366;
+        }
+
+        .fb {
+            background-color: #1877F2;
+        }
+    }
+}
+
+.divfather {
+    width: 97%;
+    border-radius: 15px;
+    text-align: center;
+    padding: $padding-sections;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+
+
+    .cardswiper {
+        width: 80%;
+        overflow: hidden;
+        display: flex;
+        gap: 10px;
+
+        .data {
+            color: grey;
+            text-align: left;
+            background: linear-gradient(to top, $secondary-color, rgba(7, 41, 107, 0));
+            padding: $padding-sections;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-radius: 12px;
+            border-bottom: 2px solid white;
+            border-right: 2px solid white;
+
+            div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: max-content;
+            }
+
+            h3 {
+                color: white;
+                margin: 0;
+                text-decoration: 3px underline $primary-color;
+                text-underline-offset: 8px;
+            }
+        }
+    }
+
+    .img {
+        width: 500px;
+        height: 230px;
+        filter: brightness(.9);
     }
 }

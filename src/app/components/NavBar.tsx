@@ -7,15 +7,15 @@ export const NavBar = () => {
                 <div className="logo">
                     <Image
                         alt="logo"
-                        width={120}
-                        height={120}
+                        width={80}
+                        height={80}
                         src="/gymlogo.png"
                     />
                 </div>
                 <div>
-                    <p>Inicio</p>
                     <p>Servicios</p>
-                    <p>Testimonios</p>
+                    <p>Nosotros</p>
+                    <p>Productos</p>
                     <p>Contacto</p>
                 </div>
             </div>
