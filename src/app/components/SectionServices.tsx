@@ -9,7 +9,7 @@ export const SectionServices = () => {
     return (
         <div className="services">
             <div className="data">
-                <h2 className={`${anton.className} titles`} >Nuestros Servicios</h2>
+                <h2 className={`${anton.className} titles`} >NUESTROS SERVICIOS</h2>
                 <p>Descubre todo lo que Viking Gym tiene para ofrecerte.</p>
             </div>
             <div className="contentCards">

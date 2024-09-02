@@ -7,7 +7,7 @@ export const Footer = () => {
     return (
         <div className="footer">
             <div className="data">
-                <h2 className={`${anton.className} titles`}>Contáctanos</h2>
+                <h2 className={`${anton.className} titles`}>CONTACTO</h2>
                 <p>Si tienes alguna pregunta o quieres más información, no dudes en comunicarte con nosotros.</p>
             </div>
             <div className="divredes">

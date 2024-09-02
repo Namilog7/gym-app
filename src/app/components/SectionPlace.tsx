@@ -13,7 +13,7 @@ export const SectionPlace = () => {
 
     return (
         <div className="divfather">
-            <h2 className={`${anton.className} titles`} >Nosotros</h2>
+            <h2 className={`${anton.className} titles`} >NOSOTROS</h2>
             <div className="cardswiper">
                 <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y]}

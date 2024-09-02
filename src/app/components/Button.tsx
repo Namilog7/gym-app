@@ -1,6 +1,8 @@
 "use client"
-
+import ReactModal from "react-modal";
+import { useState } from "react";
 import { ReactElement } from "react";
+import { ModalLogin } from "./ModalLogin";
 
 interface ButtonProps {
     className: string;
@@ -9,10 +11,21 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ className, content, icon }) => {
+    const [isClicked, setIsClicked] = useState(false)
     return (
-        <button className={className}>
-            <p>{content}</p>
-            {icon}
-        </button>
+        <>
+            <button className={className} onClick={() => setIsClicked(!isClicked)}>
+                <p>{content}</p>
+                {icon}
+            </button>
+            <ReactModal
+                isOpen={isClicked}
+                overlayClassName="custom-overlay"
+                className="modallogin"
+                onRequestClose={() => setIsClicked(!isClicked)}
+            >
+                <ModalLogin />
+            </ReactModal>
+        </>
     )
 }
