@@ -1,8 +1,10 @@
 "use client"
-import ReactModal from "react-modal";
-import { useState } from "react";
+import Modal from "react-modal";
+import { useEffect, useState } from "react";
 import { ReactElement } from "react";
 import { ModalLogin } from "./ModalLogin";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface ButtonProps {
     className: string;
@@ -12,20 +14,27 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ className, content, icon }) => {
     const [isClicked, setIsClicked] = useState(false)
+    const { data: session } = useSession()
+
+    useEffect(() => {
+        if (session?.user?.email == "gonzalodavidbaeznoriega@gmail.com") {
+            redirect("/admin")
+        }
+    }, [session])
     return (
         <>
             <button className={className} onClick={() => setIsClicked(!isClicked)}>
                 <p>{content}</p>
                 {icon}
             </button>
-            <ReactModal
+            <Modal
                 isOpen={isClicked}
                 overlayClassName="custom-overlay"
                 className="modallogin"
                 onRequestClose={() => setIsClicked(!isClicked)}
             >
                 <ModalLogin />
-            </ReactModal>
+            </Modal>
         </>
     )
 }

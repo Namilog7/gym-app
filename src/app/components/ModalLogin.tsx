@@ -2,7 +2,21 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLock } from "react-icons/io";
+import { signIn } from "next-auth/react";
+import { MouseEvent } from "react";
+
 export const ModalLogin = () => {
+
+    const login = async (e: MouseEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        try {
+            const log = await signIn("google")
+            console.log(log)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <h2>Inicia Sesión</h2>
@@ -19,7 +33,7 @@ export const ModalLogin = () => {
                 </div>
                 <button>Continuar</button>
                 <div className="divterceros">
-                    <div className="google">
+                    <div onClick={login} className="google">
                         <FcGoogle className="icon" />
                         <p>Continuar con Google</p>
                     </div>
