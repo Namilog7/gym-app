@@ -376,3 +376,19 @@ main {
         filter: brightness(.9);
     }
 }
+
+//------------------------------------------------------------------------------------------------------------------------------------//
+//   Seccion de Admin Estilos, Proximo proyecto modularizo. //
+
+.navAdmin {
+    width: 100%;
+    height: 80px;
+    background-color: $secondary-color;
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
