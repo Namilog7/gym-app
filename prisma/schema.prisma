@@ -21,6 +21,7 @@ model Members {
   problems   String?   @db.VarChar(250)
   paymentday DateTime?
   payment    Boolean?
+  age        Int
 }
 
 model Products {
