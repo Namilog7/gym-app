@@ -1,0 +1,13 @@
+GET http://localhost:3000/api/members
+
+###
+
+POST http://localhost:3000/api/members 
+content-type: application/json
+
+{
+    "name": "Gonzalo",
+    "lastname": "Baez",
+    "age" : 27,
+    "email" : "gonzaasd7@gmail.com"
+}

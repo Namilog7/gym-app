@@ -1,54 +1,78 @@
-import { NextApiRequest } from "next";
 import prisma from "../../../../prisma";
 import { Members } from "@prisma/client";
+import { NextResponse, NextRequest } from "next/server";
 
 
-export async function GET() {
-    try {
-        const membersPromise = await prisma.members.findMany()
-        const members = JSON.stringify(membersPromise)
-        return new Response(members)
-    } catch (error) {
-        return error
+export async function handler(req: NextRequest, res: NextResponse) {
+
+    if (req.method == "GET") {
+        try {
+            const membersPromise = await prisma.members.findMany()
+            const members = JSON.stringify(membersPromise)
+            return new Response(members)
+        } catch (error) {
+            return error
+        }
+    }
+
+
+    const bodyparse = await req.json()
+    if (req.method == "POST") {
+        const { name, lastname, email, age, payment, paymentday, problems }: Members = bodyparse
+        if (![name, lastname, email, age].every(Boolean)) {
+            return NextResponse.json({ message: "Complete los campos" })
+        }
+        try {
+            const findUserEmail = await prisma.members.findFirst({
+                where: {
+                    email
+                }
+            })
+            if (findUserEmail) return NextResponse.json({ message: "Ya esta registrado ese miembro" })
+            const user = await prisma.members.create({
+                data: {
+                    name,
+                    lastname,
+                    email,
+                    payment,
+                    paymentday,
+                    problems,
+                    age
+                }
+            });
+            const message = { message: `Se ha creado con exito el miembro ${user.name}` }
+            return NextResponse.json(message)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    if (req.method == "PUT") {
+        const { name, lastname, payment, paymentday, email, problems, age }: Members = bodyparse
+        try {
+            const user = await prisma.members.update({
+                where: {
+                    email
+                },
+                data: {
+                    name,
+                    lastname,
+                    payment,
+                    paymentday,
+                    problems,
+                    age
+                }
+            });
+            return new Response(`Datos de ${user.name} actualizados`)
+        } catch (error) {
+            return error
+        }
     }
 }
 
-export async function POST(req: NextApiRequest) {
-    const { name, lastname, payment, paymentday, email, problems }: Members = req.body
-    try {
-        await prisma.members.create({
-            data: {
-                name,
-                lastname,
-                email,
-                payment,
-                paymentday,
-                problems
-            }
-        });
-        return new Response(`Se ha creado con exito a ${name}`)
-    } catch (error) {
-        return error
-    }
-}
+export { handler as GET, handler as POST, handler as PUT }
 
-export async function PUT(req: NextApiRequest) {
-    const { name, lastname, payment, paymentday, email, problems }: Members = req.body
-    try {
-        await prisma.members.update({
-            where: {
-                email
-            },
-            data: {
-                name,
-                lastname,
-                payment,
-                paymentday,
-                problems
-            }
-        });
-        return new Response(`Datos de ${name} actualizados`)
-    } catch (error) {
-        return error
-    }
-}
+
+
+
+
