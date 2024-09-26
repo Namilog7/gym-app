@@ -19,9 +19,9 @@ type ModalProps = {
 }
 
 export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
-    let method;
-    if (title == "agregar") method = "POST"
-    if (title == "editar") method = "PUT"
+    let method: string;
+    if (title == "AGREGAR") method = "POST"
+    if (title == "EDITAR") method = "PUT"
     const [viewAlert, setViewAlert] = useState(false)
     const [dataResponse, setDataResponse] = useState({ message: {} })
     const handleClick = () => {
@@ -37,6 +37,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
         const { age, paymentday } = data
         const day = new Date(paymentday).toISOString()
         let ageDto
+        console.log(method)
         if (!Number.isNaN(age)) ageDto = parseInt(age)
         else window.alert("Envie datos correctos")
         fetch("http://localhost:3000/api/members", {
@@ -77,7 +78,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
                 <label htmlFor="age"></label>
                 <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue="" {...register("age", { required: true })} />
                 <label htmlFor="problems"></label>
-                <textarea name="problems" id="problems" placeholder="Problemas Fisicos" rows={12}></textarea>
+                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} {...register("problems")}></textarea>
                 <button className="buttonAdd">Agregar</button>
             </form>
             {viewAlert && <Alert severity="success" >Todo ok </Alert>}

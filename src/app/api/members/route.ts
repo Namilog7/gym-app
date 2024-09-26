@@ -63,9 +63,9 @@ export async function handler(req: NextRequest, res: NextResponse) {
                     age
                 }
             });
-            return new Response(`Datos de ${user.name} actualizados`)
+            return NextResponse.json({ message: `Datos de ${user.name} actualizados` })
         } catch (error) {
-            return error
+            return new Response(`Hubo un problema: ${error}`)
         }
     }
 }
