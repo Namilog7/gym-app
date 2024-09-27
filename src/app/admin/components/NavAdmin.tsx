@@ -3,10 +3,17 @@ import { useState } from "react";
 import Modal from "react-modal"
 import { ModalAdd } from "./ModalAdd";
 import { CSSProperties } from "react";
-
+import useNumberStore from "@/app/store/store";
+import { Alert } from "@mui/material"
 
 export const NavAdmin = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [showAlert, setShowAlert] = useState({
+        isView: false,
+        info: ""
+    })
+
+    const { numbers } = useNumberStore()
     const [valueSelect, setValueSelect] = useState("")
     const customStyles: { content: CSSProperties; overlay: CSSProperties } = {
         content: {
@@ -25,8 +32,13 @@ export const NavAdmin = () => {
     };
 
     const openModal = (e: any) => {
+        if (numbers.length > 1) {
+            window.alert("Debe realizar un moviemiento a la vez")
+            return
+        }
         setIsOpen(!isOpen)
-        setValueSelect(e.target.value)
+        setValueSelect(e.target?.value)
+        console.log(numbers)
     }
     return (
         <nav className="navAdmin" >
@@ -53,12 +65,18 @@ export const NavAdmin = () => {
                 isOpen={isOpen}
                 overlayClassName="custom-overlay"
                 className="modallogin"
-                onRequestClose={() => setIsOpen(!isOpen)}
+                onRequestClose={() => openModal(!isOpen)}
                 style={customStyles}
 
             >
-                <ModalAdd title={valueSelect} />
+                <ModalAdd title={valueSelect} member={numbers[0]} setShowAlert={setShowAlert} setIsOpen={setIsOpen} />
             </Modal>
+            <div style={{ position: "absolute", top: "2%", left: "35%" }}>
+                {
+                    showAlert.isView &&
+                    <Alert severity="success">{showAlert.info} </Alert>
+                }
+            </div>
         </nav>
     )
 }

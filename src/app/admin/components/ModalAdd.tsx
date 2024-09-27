@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { Alert } from "@mui/material"
+import { Members } from "@prisma/client"
+import useNumberStore from "@/app/store/store"
 
 type Inputs = {
     name: string,
@@ -13,21 +14,23 @@ type Inputs = {
     age: string,
     problems: string
 }
-
+type AlertProps = {
+    isView: boolean,
+    info: string
+}
 type ModalProps = {
-    title: string
+    title: string,
+    member: Members,
+    setShowAlert: React.Dispatch<React.SetStateAction<AlertProps>>
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
+export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, setIsOpen }) => {
     let method: string;
+
     if (title == "AGREGAR") method = "POST"
     if (title == "EDITAR") method = "PUT"
-    const [viewAlert, setViewAlert] = useState(false)
-    const [dataResponse, setDataResponse] = useState({ message: {} })
-    const handleClick = () => {
-        setViewAlert(true)
 
-    }
     const {
         register,
         handleSubmit,
@@ -44,9 +47,23 @@ export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
             method: method,
             body: JSON.stringify({ ...data, paymentday: day, age: ageDto })
         }).then((data) => data.json())
-            .then((response) => window.alert(response.message))
+            .then((response) => setShowAlert({ isView: true, info: response.message }))
+            .then((response) => setIsOpen(false))
+            .then((response) => setTimeout(() => setShowAlert({ isView: false, info: "" }), 2000))
             .catch((error) => console.log(error))
     }
+
+    const formatDateTime = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados, por eso +1
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
+    const day = formatDateTime(new Date(member?.paymentday!))
+
     useEffect(() => {
         return () => {
             const select = document.getElementById("select");
@@ -58,30 +75,29 @@ export const ModalAdd: React.FC<ModalProps> = ({ title }) => {
             <h2 style={{ margin: 0, marginBottom: "5px", color: "black" }}>{title} </h2>
             <form action="" style={{ display: "flex", flexDirection: "column", gap: "8px" }} className="formAdd" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="name"></label>
-                <input className="inputs" type="text" id="name" placeholder="Nombre" defaultValue="" {...register("name", { required: true, minLength: 2 })} />
+                <input className="inputs" type="text" id="name" placeholder="Nombre" defaultValue={title == "EDITAR" ? member?.name : ""} {...register("name", { required: true, minLength: 2 })} />
                 {errors.name && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="lastname"></label>
-                <input className="inputs" type="text" id="lastname" placeholder="Apellido" defaultValue="" {...register("lastname", { required: true })} />
+                <input className="inputs" type="text" id="lastname" placeholder="Apellido" defaultValue={title == "EDITAR" ? member?.lastname : ""} {...register("lastname", { required: true })} />
                 {errors.lastname && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="email"></label>
-                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue="" {...register("email", { required: true, pattern: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ })} />
+                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title == "EDITAR" ? member?.email : ""} {...register("email", { required: true, pattern: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ })} />
                 {errors.email && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="paymentday"></label>
-                <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue="" {...register("paymentday", { required: true })} />
+                <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title == "EDITAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>
-                <select id="payment" {...register("payment", { required: true })} >
+                <select id="payment" defaultValue={title == "EDITAR" ? member?.payment : ""} {...register("payment", { required: true })} >
                     <option value="" selected disabled>Estado Membresia</option>
                     <option value="ABONADO">Abonado</option>
                     <option value="VENCIDO">Vencido</option>
                 </select>
                 {errors.payment && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="age"></label>
-                <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue="" {...register("age", { required: true })} />
+                <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue={title == "EDITAR" ? member?.age : ""} {...register("age", { required: true })} />
                 <label htmlFor="problems"></label>
-                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} {...register("problems")}></textarea>
-                <button className="buttonAdd">Agregar</button>
+                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} defaultValue={title == "EDITAR" ? member?.problems : ""} {...register("problems")}></textarea>
+                <button className="buttonAdd">{title}</button>
             </form>
-            {viewAlert && <Alert severity="success" >Todo ok </Alert>}
         </>
     )
 }

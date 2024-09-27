@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
+import useNumberStore from '@/app/store/store';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -25,12 +26,21 @@ const paginationModel = { page: 0, pageSize: 10 };
 
 
 export default function DataTable() {
+    const { setNumbers, numbers } = useNumberStore()
     const [rows1, setRows1] = React.useState([])
+
+    const handlerRows = (members: any) => {
+        const membersInfo = rows1.filter((member) => members.includes(member.id))
+        setNumbers(membersInfo)
+    }
     React.useEffect(() => {
         fetch("http://localhost:3000/api/members")
             .then((data) => data.json())
             .then((response) => setRows1(response))
     }, [])
+    React.useEffect(() => {
+        console.log(numbers)
+    }, [numbers])
     return (
         <Paper sx={{ height: "85vh", width: '100%' }}>
             <DataGrid
@@ -40,6 +50,7 @@ export default function DataTable() {
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
                 sx={{ border: 0 }}
+                onRowSelectionModelChange={(members) => handlerRows(members)}
             />
         </Paper>
     );
