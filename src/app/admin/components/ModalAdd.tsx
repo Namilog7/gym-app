@@ -27,7 +27,7 @@ type ModalProps = {
 
 export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, setIsOpen }) => {
     let method: string;
-
+    const { setStateReload, resetNumbers } = useNumberStore()
     if (title == "AGREGAR") method = "POST"
     if (title == "EDITAR") method = "PUT"
 
@@ -50,6 +50,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
             .then((response) => setShowAlert({ isView: true, info: response.message }))
             .then((response) => setIsOpen(false))
             .then((response) => setTimeout(() => setShowAlert({ isView: false, info: "" }), 2000))
+            .then((response) => setStateReload(true))
             .catch((error) => console.log(error))
     }
 

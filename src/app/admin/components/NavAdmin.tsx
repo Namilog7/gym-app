@@ -4,7 +4,7 @@ import Modal from "react-modal"
 import { ModalAdd } from "./ModalAdd";
 import { CSSProperties } from "react";
 import useNumberStore from "@/app/store/store";
-import { Alert } from "@mui/material"
+import { Alert, Slide } from "@mui/material"
 
 export const NavAdmin = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -33,12 +33,13 @@ export const NavAdmin = () => {
 
     const openModal = (e: any) => {
         if (numbers.length > 1) {
+            const select = document.getElementById("select");
             window.alert("Debe realizar un moviemiento a la vez")
+            select.selectedIndex = 0
             return
         }
         setIsOpen(!isOpen)
         setValueSelect(e.target?.value)
-        console.log(numbers)
     }
     return (
         <nav className="navAdmin" >
@@ -56,10 +57,6 @@ export const NavAdmin = () => {
                 <div className="options">
                     <p>Productos</p>
                 </div>
-                <form action="">
-                    <label htmlFor="search"></label>
-                    <input type="text" />
-                </form>
             </div>
             <Modal
                 isOpen={isOpen}
@@ -73,8 +70,9 @@ export const NavAdmin = () => {
             </Modal>
             <div style={{ position: "absolute", top: "2%", left: "35%" }}>
                 {
-                    showAlert.isView &&
-                    <Alert severity="success">{showAlert.info} </Alert>
+                    <Slide in={showAlert.isView} direction="down" mountOnEnter unmountOnExit >
+                        <Alert severity="success">{showAlert.info} </Alert>
+                    </Slide>
                 }
             </div>
         </nav>

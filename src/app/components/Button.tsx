@@ -14,10 +14,10 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ className, content, icon }) => {
     const [isClicked, setIsClicked] = useState(false)
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
 
     useEffect(() => {
-        if (session?.user?.email == "gonzalodavidbaeznoriega@gmail.com") {
+        if (session?.user?.email == "gonzalodavidbaeznoriega@gmail.com" && status == "authenticated") {
             redirect("/admin")
         }
     }, [session])
