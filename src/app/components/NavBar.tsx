@@ -12,7 +12,7 @@ export const NavBar = () => {
                         src="/gymlogo.png"
                     />
                 </div>
-                <div>
+                <div className="links">
                     <p>Servicios</p>
                     <p>Nosotros</p>
                     <p>Productos</p>
