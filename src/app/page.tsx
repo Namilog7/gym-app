@@ -2,7 +2,8 @@ import { Footer } from "./components/Footer";
 import { SectionServices } from "./components/SectionServices";
 import { Anton } from "next/font/google";
 import SectionPrincipal from "./components/SectionPrincipal";
-import { SectionPlace } from "./components/SectionPlace";
+import SectionNosotros from "./components/SectionNosotros";
+
 
 export const anton = Anton({ weight: "400", subsets: ["latin"] })
 
@@ -12,7 +13,7 @@ export default function Home() {
       <SectionPrincipal />
       <main>
         <SectionServices />
-        <SectionPlace />
+        <SectionNosotros />
       </main>
       <footer>
         <Footer />
