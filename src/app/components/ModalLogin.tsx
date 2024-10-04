@@ -31,7 +31,7 @@ export const ModalLogin = () => {
                     <label htmlFor=""></label>
                     <input type="password" name="password" id="password" placeholder="Contraseña" />
                 </div>
-                <button>Continuar</button>
+                <button style={{ color: "white", fontSize: "18px" }}>Continuar</button>
                 <div className="divterceros">
                     <div onClick={login} className="google">
                         <FcGoogle className="icon" />

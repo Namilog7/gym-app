@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import { ReactElement } from "react";
 import { ModalLogin } from "./ModalLogin";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 interface ButtonProps {
@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({ className, content, icon }) => {
     const { data: session, status } = useSession()
 
     useEffect(() => {
-        if (session?.user?.email == "gonzalodavidbaeznoriega@gmail.com" && status == "authenticated") {
+        if (status == "authenticated") {
             redirect("/admin")
         }
     }, [session])

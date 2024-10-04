@@ -1,10 +1,11 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal"
 import { ModalAdd } from "./ModalAdd";
 import { CSSProperties } from "react";
 import useNumberStore from "@/app/store/store";
 import { Alert, Slide } from "@mui/material"
+import { signOut, useSession } from "next-auth/react";
 
 export const NavAdmin = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +42,9 @@ export const NavAdmin = () => {
         setIsOpen(!isOpen)
         setValueSelect(e.target?.value)
     }
+    useEffect(() => {
+
+    }, [])
     return (
         <nav className="navAdmin" >
             <div>
@@ -56,6 +60,9 @@ export const NavAdmin = () => {
                 </div>
                 <div className="options">
                     <p>Productos</p>
+                </div>
+                <div className="options" style={{ backgroundColor: "red" }} onClick={() => signOut()}>
+                    <p>Log Out</p>
                 </div>
             </div>
             <Modal

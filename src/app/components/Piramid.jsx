@@ -35,6 +35,7 @@ const styles = {
     margin: '5px 0',
     borderRadius: '10px',
     textAlign: 'center',
+    boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)"
   },
   top: {
     width: '30%', // Nivel más alto, más pequeño

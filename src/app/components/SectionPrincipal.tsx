@@ -14,7 +14,7 @@ export default function SectionPrincipal() {
                 <div className="contenedorheader">
                     <div className="divh1">
                         <h1 className={`${anton.className} titles`} style={{ fontSize: "4em", margin: "0" }}>ALCANZA TUS METAS</h1>
-                        <h1 className={anton.className} style={{ fontSize: "4em", margin: "0", color: "#07296b" }}>
+                        <h1 className={anton.className} style={{ fontSize: "4em", margin: "0", color: "#0E49BA" }}>
                             TRANSFORMA TU ESTILO DE VIDA
                         </h1>
                         <p style={{ fontSize: "20px", color: "grey" }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quae obcaecati quos animi nam excepturi distinctio, aliquam sunt null</p>
