@@ -21,6 +21,7 @@ h2 {
 nav {
     height: 80px;
     width: 100%;
+    padding-top: 5px;
     display: flex;
     justify-content: center;
 
@@ -163,6 +164,7 @@ header {
     .divh1 {
         width: 90%;
         height: auto;
+        line-height: 1.1;
 
         .ingresar {
             width: 60%; // Ajustar ancho del botón en pantallas pequeñas
@@ -457,6 +459,7 @@ main {
         border-radius: 15px;
         background-color: $secondary-color;
         padding: 1%;
+        border: 2px solid grey;
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
 
         h3 {

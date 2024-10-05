@@ -1,6 +1,6 @@
-import React from 'react';
 
-const Pyramid = () => {
+
+export default function Pyramid() {
   return (
     <div style={styles.container}>
       <div style={{ ...styles.level, ...styles.top, backgroundColor: '#FF6961' }}>
@@ -48,4 +48,3 @@ const styles = {
   },
 };
 
-export default Pyramid;
