@@ -68,9 +68,22 @@ export async function handler(req: NextRequest, res: NextResponse) {
             return new Response(`Hubo un problema: ${error}`)
         }
     }
+    if (req.method == "DELETE") {
+        const { email, name }: Members = bodyparse
+        try {
+            await prisma.members.delete({
+                where: {
+                    email
+                }
+            })
+            return new Response(`Se elimino al miembro ${name}`)
+        } catch (error) {
+            return new Response(`Hubo un error: ${error}`)
+        }
+    }
 }
 
-export { handler as GET, handler as POST, handler as PUT }
+export { handler as GET, handler as POST, handler as PUT, handler as DELETE }
 
 
 
