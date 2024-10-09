@@ -281,14 +281,14 @@ main {
 .services {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: 45px;
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding-bottom: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background: rgb(0, 0, 0);
     background: linear-gradient(60deg, rgba(0, 0, 0, 1) 29%, rgba(14, 73, 186, 1) 29%, rgba(0, 0, 0, 1) 100%);
 
@@ -392,6 +392,7 @@ main {
         background-color: #0f388b;
         border-radius: 15px;
         height: 60%;
+        color: white;
 
         .selectoptions {
             width: 100%;
@@ -445,7 +446,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 97%;
+    width: 96%;
+    margin-bottom: 20px;
 }
 
 .nosotroscontenido {

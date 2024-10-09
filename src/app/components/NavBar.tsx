@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export const NavBar = () => {
     return (
@@ -13,10 +14,9 @@ export const NavBar = () => {
                     />
                 </div>
                 <div className="links">
-                    <p>Servicios</p>
-                    <p>Nosotros</p>
-                    <p>Productos</p>
-                    <p>Contacto</p>
+                    <Link href={"#section1"} style={{ textDecoration: "none", color: "white" }}> <p>Servicios</p></Link>
+                    <Link href={"#section2"} style={{ textDecoration: "none", color: "white" }}> <p>Nosotros</p></Link>
+                    <Link href={"#section4"} style={{ textDecoration: "none", color: "white" }}> <p>Contacto</p></Link>
                 </div>
             </div>
         </nav>

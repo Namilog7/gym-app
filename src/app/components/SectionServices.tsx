@@ -7,7 +7,7 @@ import { anton } from "../page";
 
 export const SectionServices = () => {
     return (
-        <div className="services">
+        <div className="services" id="section1">
             <div className="data">
                 <h2 className={`${anton.className} titles`} >NUESTROS SERVICIOS</h2>
                 <p>Descubre todo lo que Viking Gym tiene para ofrecerte.</p>
