@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { Members } from "@prisma/client"
 import useNumberStore from "@/app/store/store"
@@ -27,10 +27,10 @@ type ModalProps = {
 
 export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, setIsOpen }) => {
     let method: string;
-    const { setStateReload, resetNumbers } = useNumberStore()
+    const { setStateReload } = useNumberStore()
     if (title == "AGREGAR") method = "POST"
     if (title == "EDITAR") method = "PUT"
-
+    if (title == "ELIMINAR") method = "DELETE"
     const {
         register,
         handleSubmit,
@@ -76,27 +76,27 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
             <h2 style={{ margin: 0, marginBottom: "5px", color: "black" }}>{title} </h2>
             <form action="" style={{ display: "flex", flexDirection: "column", gap: "8px" }} className="formAdd" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="name"></label>
-                <input className="inputs" type="text" id="name" placeholder="Nombre" defaultValue={title == "EDITAR" ? member?.name : ""} {...register("name", { required: true, minLength: 2 })} />
+                <input className="inputs" type="text" id="name" placeholder="Nombre" defaultValue={title !== "AGREGAR" ? member?.name : ""} {...register("name", { required: true, minLength: 2 })} />
                 {errors.name && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="lastname"></label>
-                <input className="inputs" type="text" id="lastname" placeholder="Apellido" defaultValue={title == "EDITAR" ? member?.lastname : ""} {...register("lastname", { required: true })} />
+                <input className="inputs" type="text" id="lastname" placeholder="Apellido" defaultValue={title !== "AGREGAR" ? member?.lastname : ""} {...register("lastname", { required: true })} />
                 {errors.lastname && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="email"></label>
-                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title == "EDITAR" ? member?.email : ""} {...register("email", { required: true, pattern: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ })} />
+                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title !== "AGREGAR" ? member?.email : ""} {...register("email", { required: true, pattern: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ })} />
                 {errors.email && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="paymentday"></label>
-                <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title == "EDITAR" ? day : ""} {...register("paymentday", { required: true })} />
+                <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title !== "AGREGAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>
-                <select id="payment" defaultValue={title == "EDITAR" ? member?.payment : ""} {...register("payment", { required: true })} >
+                <select id="payment" defaultValue={title !== "AGREGAR" ? member?.payment : ""} {...register("payment", { required: true })} >
                     <option value="" selected disabled>Estado Membresia</option>
                     <option value="ABONADO">Abonado</option>
                     <option value="VENCIDO">Vencido</option>
                 </select>
                 {errors.payment && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="age"></label>
-                <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue={title == "EDITAR" ? member?.age : ""} {...register("age", { required: true })} />
+                <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue={title !== "AGREGAR" ? member?.age : ""} {...register("age", { required: true })} />
                 <label htmlFor="problems"></label>
-                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} defaultValue={title == "EDITAR" ? member?.problems : ""} {...register("problems")}></textarea>
+                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} defaultValue={title !== "AGREGAR" ? member?.problems : ""} {...register("problems")}></textarea>
                 <button className="buttonAdd">{title}</button>
             </form>
         </>

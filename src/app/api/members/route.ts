@@ -7,9 +7,22 @@ export async function handler(req: NextRequest, res: NextResponse) {
 
     if (req.method == "GET") {
         try {
-            const membersPromise = await prisma.members.findMany()
-            const members = JSON.stringify(membersPromise)
-            return new Response(members)
+            const membersPromise = await prisma.members.findMany();
+
+            const members = membersPromise.map(member => {
+                const today = new Date();
+                const paymentDate = new Date(member.paymentday);
+                const oneMonthLater = new Date(paymentDate);
+                oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+
+                if (today > oneMonthLater && member.payment === 'ABONADO') {
+                    member.payment = 'VENCIDO';
+                }
+
+                return member;
+            });
+
+            return new Response(JSON.stringify(members));
         } catch (error) {
             return error
         }
@@ -76,7 +89,7 @@ export async function handler(req: NextRequest, res: NextResponse) {
                     email
                 }
             })
-            return new Response(`Se elimino al miembro ${name}`)
+            return NextResponse.json({ message: `Datos de ${name} eliminados` })
         } catch (error) {
             return new Response(`Hubo un error: ${error}`)
         }

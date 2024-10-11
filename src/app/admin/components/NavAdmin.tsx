@@ -63,6 +63,7 @@ export const NavAdmin = () => {
                         <option value="" disabled selected>Miembros</option>
                         <option value="AGREGAR">Agregar</option>
                         <option value="EDITAR">Editar</option>
+                        <option value="ELIMINAR">Eliminar</option>
                     </select>
                 </div>
 
