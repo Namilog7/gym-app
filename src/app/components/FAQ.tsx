@@ -52,11 +52,10 @@ export default function FAQ() {
                         aria-controls="panel1-content"
                         id="panel1-header"
                     >
-                        Accordion 1
+                        Cuales son los dias y horarios del gimnasio?
                     </AccordionSummary>
                     <AccordionDetails>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        El gimmnasio esta abierto de lunes a viernes de 7:00 a 22:00 y los sabados de 8:00 a 12:00 del medio dia.
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
@@ -65,11 +64,21 @@ export default function FAQ() {
                         aria-controls="panel2-content"
                         id="panel2-header"
                     >
-                        Accordion 2
+                        Hay algún entrenador que me explique la manera adecuada de como entrenar?
                     </AccordionSummary>
                     <AccordionDetails>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Si contamos con entrenador en ambos turnos que te enseñan la rutina.
+                    </AccordionDetails>
+                </Accordion><Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2-content"
+                        id="panel2-header"
+                    >
+                        Hacen rutinas o dietas personalizadas?
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        Si contamos con rutinas y dietas totalmente personalizadas dependiendo el objetivo del atleta.
                     </AccordionDetails>
                 </Accordion>
             </div>
