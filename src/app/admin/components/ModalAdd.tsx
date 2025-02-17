@@ -1,9 +1,7 @@
-"use client"
-
-import { useEffect } from "react"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { Members } from "@prisma/client"
-import useNumberStore from "@/app/store/store"
+import { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Members } from "@prisma/client";
+import useNumberStore from "@/app/store/store";
 
 type Inputs = {
     name: string,
@@ -14,45 +12,51 @@ type Inputs = {
     age: string,
     problems: string
 }
+
 type AlertProps = {
     isView: boolean,
     info: string
 }
+
 type ModalProps = {
     title: string,
     member: Members,
-    setShowAlert: React.Dispatch<React.SetStateAction<AlertProps>>
+    setShowAlert: React.Dispatch<React.SetStateAction<AlertProps>>,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, setIsOpen }) => {
     let method: string;
-    const { setStateReload } = useNumberStore()
-    if (title == "AGREGAR") method = "POST"
-    if (title == "EDITAR") method = "PUT"
-    if (title == "ELIMINAR") method = "DELETE"
+    const { setStateReload } = useNumberStore();
+    if (title === "AGREGAR") method = "POST";
+    if (title === "EDITAR") method = "PUT";
+    if (title === "ELIMINAR") method = "DELETE";
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Inputs>()
+    } = useForm<Inputs>();
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const { age, paymentday } = data
-        const day = new Date(paymentday).toISOString()
-        let ageDto
-        console.log(method)
-        if (!Number.isNaN(age)) ageDto = parseInt(age)
-        else window.alert("Envie datos correctos")
+        const { age, paymentday } = data;
+        const day = new Date(paymentday).toISOString();
+        let ageDto;
+        console.log(method);
+        if (!Number.isNaN(age)) ageDto = parseInt(age);
+        else window.alert("Envie datos correctos");
+
         fetch("http://localhost:3000/api/members", {
             method: method,
             body: JSON.stringify({ ...data, paymentday: day, age: ageDto })
-        }).then((data) => data.json())
+        })
+            .then((data) => data.json())
             .then((response) => setShowAlert({ isView: true, info: response.message }))
-            .then((response) => setIsOpen(false))
-            .then((response) => setTimeout(() => setShowAlert({ isView: false, info: "" }), 2000))
-            .then((response) => setStateReload(true))
-            .catch((error) => console.log(error))
-    }
+            .then(() => setIsOpen(false))
+            .then(() => setTimeout(() => setShowAlert({ isView: false, info: "" }), 2000))
+            .then(() => setStateReload(true))
+            .catch((error) => console.log(error));
+    };
 
     const formatDateTime = (date: Date) => {
         const year = date.getFullYear();
@@ -63,14 +67,15 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
         return `${year}-${month}-${day}T${hours}:${minutes}`;
     };
 
-    const day = formatDateTime(new Date(member?.paymentday!))
+    const day = formatDateTime(new Date(member?.paymentday!));
 
     useEffect(() => {
-        return () => {
-            const select = document.getElementById("select");
-            select.selectedIndex = 0
+        const select = document.getElementById("select") as HTMLSelectElement | null;
+        if (select) {
+            select.selectedIndex = 0;
         }
-    }, [])
+    }, []);
+
     return (
         <>
             <h2 style={{ margin: 0, marginBottom: "5px", color: "black" }}>{title} </h2>
@@ -87,7 +92,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 <label htmlFor="paymentday"></label>
                 <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title !== "AGREGAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>
-                <select id="payment" defaultValue={title !== "AGREGAR" ? member?.payment : ""} {...register("payment", { required: true })} >
+                <select id="payment" defaultValue={title !== "AGREGAR" ? member?.payment : ""} {...register("payment", { required: true })}>
                     <option value="" selected disabled>Estado Membresia</option>
                     <option value="ABONADO">Abonado</option>
                     <option value="VENCIDO">Vencido</option>
@@ -100,5 +105,5 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 <button className="buttonAdd">{title}</button>
             </form>
         </>
-    )
-}
+    );
+};
