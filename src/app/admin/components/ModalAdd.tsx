@@ -101,7 +101,13 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 <label htmlFor="age"></label>
                 <input className="inputs" type="text" id="age" placeholder="Edad" defaultValue={title !== "AGREGAR" ? member?.age : ""} {...register("age", { required: true })} />
                 <label htmlFor="problems"></label>
-                <textarea id="problems" placeholder="Problemas Fisicos" rows={12} defaultValue={title !== "AGREGAR" ? member?.problems : ""} {...register("problems")}></textarea>
+                <textarea
+                    id="problems"
+                    placeholder="Problemas Fisicos"
+                    rows={12}
+                    defaultValue={title !== "AGREGAR" ? member?.problems || "" : ""}
+                    {...register("problems")}
+                />
                 <button className="buttonAdd">{title}</button>
             </form>
         </>
