@@ -63,13 +63,13 @@ export default function DataTable() {
     return (
         <Paper sx={{ height: "85vh", width: '100%' }}>
             <DataGrid
-                rows={rows1} // rows1 ahora está correctamente tipado como `Member[]`
+                rows={rows1}
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
                 sx={{ border: 0 }}
-                rowSelection={viewIds()}
+                rowSelectionModel={viewIds()} // Cambiado aquí, ahora usa rowSelectionModel
                 onRowSelectionModelChange={(members) => handlerRows(members)} // members ahora es un array de IDs
             />
         </Paper>
