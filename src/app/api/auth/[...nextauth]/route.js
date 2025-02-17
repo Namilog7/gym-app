@@ -1,7 +1,8 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-export const authOptions = {
+// Configura tus opciones de autenticación
+const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -12,20 +13,19 @@ export const authOptions = {
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === "fedesalva78@gmail.com") {
-                return true; // Autenticación permitida
+                return true;
             }
-            return false; // Rechazar autenticación
+            return false;
         },
         async redirect({ url, baseUrl }) {
             if (url === '/api/auth/signout') {
-                return baseUrl; // Redirigir a la página principal después de signOut
+                return baseUrl;
             }
-            // Redirige a '/admin' después de iniciar sesión, si lo necesitas
             return baseUrl + '/admin';
         },
-    }
-
+    },
 };
 
+// Solo exporta la función `NextAuth` configurada como un handler para `GET` y `POST`
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
