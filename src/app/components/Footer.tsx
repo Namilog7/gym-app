@@ -11,13 +11,13 @@ export const Footer = () => {
                 <p>Si tienes alguna pregunta o quieres más información, no dudes en comunicarte con nosotros.</p>
             </div>
             <div className="divredes">
-                <a href="" className="redes ig">
+                <a href="https://www.instagram.com/vikin_gym_/" className="redes ig">
                     <FaInstagram style={{ fontSize: "40px" }} />
                 </a>
-                <a href="" className="redes fb">
+                <a href="https://www.facebook.com/profile.php?id=61556699037189" className="redes fb">
                     <FaFacebookF style={{ fontSize: "40px" }} />
                 </a>
-                <a href="" className="redes wp">
+                <a href="https://wa.me/+5491149161112" className="redes wp">
                     <FaWhatsapp style={{ fontSize: "40px" }} />
                 </a>
             </div>
