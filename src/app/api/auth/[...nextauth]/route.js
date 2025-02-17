@@ -12,18 +12,19 @@ export const authOptions = {
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === "fedesalva78@gmail.com") {
-                return '/admin';
+                return true; // Autenticación permitida
             }
-            return false;
+            return false; // Rechazar autenticación
         },
         async redirect({ url, baseUrl }) {
-            // Verificar si la redirección es después de un signOut
             if (url === '/api/auth/signout') {
-                return baseUrl; // Redirigir a la página principal
+                return baseUrl; // Redirigir a la página principal después de signOut
             }
-            return url.startsWith(baseUrl) ? url : baseUrl;
+            // Redirige a '/admin' después de iniciar sesión, si lo necesitas
+            return baseUrl + '/admin';
         },
     }
+
 };
 
 const handler = NextAuth(authOptions);
