@@ -1,6 +1,6 @@
 "use client"
 import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import useNumberStore from '@/app/store/store';
 
@@ -18,9 +18,7 @@ const columns: GridColDef[] = [
         width: 90,
     },
     { field: "problems", headerName: "Problemas Fisicos", width: 300 }
-
 ];
-
 
 const paginationModel = { page: 0, pageSize: 10 };
 
@@ -39,14 +37,14 @@ export default function DataTable() {
     const { setNumbers, stateReload, setStateReload, numbers } = useNumberStore();
     const [rows1, setRows1] = React.useState<Member[]>([]); // Ahora rows1 tiene el tipo Member[]
 
-    const handlerRows = (members: number[]) => {
+    const handlerRows = (members: GridRowSelectionModel) => {
         // Filtramos rows1 para obtener solo los miembros que coinciden con los IDs seleccionados
         const membersInfo = rows1.filter((member) => members.includes(member.id));
         setNumbers(membersInfo); // Establecemos el estado con los miembros seleccionados
     };
 
     const viewIds = () => {
-        return numbers?.map((member) => member.id); // Devolvemos los IDs de los miembros seleccionados
+        return numbers?.map((member) => member.id) || []; // Devolvemos los IDs de los miembros seleccionados
     };
 
     React.useEffect(() => {
@@ -70,7 +68,7 @@ export default function DataTable() {
                 checkboxSelection
                 sx={{ border: 0 }}
                 rowSelectionModel={viewIds()} // Cambiado aquí, ahora usa rowSelectionModel
-                onRowSelectionModelChange={(members) => handlerRows(members)} // members ahora es un array de IDs
+                onRowSelectionModelChange={(newSelection: GridRowSelectionModel) => handlerRows(newSelection)} // Cambio aquí, usando el tipo GridRowSelectionModel
             />
         </Paper>
     );
