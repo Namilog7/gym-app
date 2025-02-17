@@ -12,7 +12,7 @@ const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === "fedesalva78@gmail.com") {
+            if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === 'fedesalva78@gmail.com') {
                 return true;
             }
             return false;
@@ -26,6 +26,11 @@ const authOptions = {
     },
 };
 
-// Solo exporta la función `NextAuth` configurada como un handler para `GET` y `POST`
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+// Exporta funciones separadas para cada método HTTP
+export async function GET(req, res) {
+    return NextAuth(req, res, authOptions);
+}
+
+export async function POST(req, res) {
+    return NextAuth(req, res, authOptions);
+}
