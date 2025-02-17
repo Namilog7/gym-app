@@ -1,9 +1,10 @@
 "use client"
 import { NavBar } from "./NavBar"
-import { Anton } from "next/font/google"
 import { Button } from "./Button"
 import { SessionProvider } from "next-auth/react"
-export const anton = Anton({ weight: "400", subsets: ["latin"] })
+
+import { Anton } from "next/font/google"
+const anton = Anton({ weight: "400", subsets: ["latin"] })
 
 
 export default function SectionPrincipal() {

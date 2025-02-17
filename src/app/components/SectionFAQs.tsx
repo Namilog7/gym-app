@@ -1,6 +1,6 @@
-import { anton } from "../page"
 import FAQ from "./FAQ"
-
+import { Anton } from "next/font/google"
+const anton = Anton({ weight: "400", subsets: ["latin"] })
 
 export default function SectionFAQs() {
     return (

@@ -3,8 +3,8 @@ import { CgGym } from "react-icons/cg";
 import { CiClock2 } from "react-icons/ci";
 import { GiChickenLeg } from "react-icons/gi";
 import { content } from "../utils/utils"
-import { anton } from "../page";
-
+import { Anton } from "next/font/google"
+const anton = Anton({ weight: "400", subsets: ["latin"] })
 export const SectionServices = () => {
     return (
         <div className="services" id="section1">

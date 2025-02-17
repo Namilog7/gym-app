@@ -1,6 +1,7 @@
 "use client"
 import ContenidoNosotros from "./ContenidoNosotros"
-import { anton } from "./SectionPrincipal"
+import { Anton } from "next/font/google"
+const anton = Anton({ weight: "400", subsets: ["latin"] })
 export default function SectionNosotros() {
     return (
         <div className="nosotros" id="section2">
