@@ -31,7 +31,7 @@ interface Member {
     email: string;
     problems: string | null;
     paymentday: Date;
-    payment: string; // Suponiendo que 'payment' es un string
+    payment: "ABONADO" | "VENCIDO"; // Suponiendo que 'payment' es un string
     age: number;
 }
 
