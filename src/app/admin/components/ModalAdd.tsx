@@ -87,8 +87,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 <input className="inputs" type="text" id="lastname" placeholder="Apellido" defaultValue={title !== "AGREGAR" ? member?.lastname : ""} {...register("lastname", { required: true })} />
                 {errors.lastname && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="email"></label>
-                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title !== "AGREGAR" ? member?.email : ""} {...register("email", { required: true, pattern: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/ })} />
-                {errors.email && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
+                <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title !== "AGREGAR" ? member?.email : ""} />
                 <label htmlFor="paymentday"></label>
                 <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title !== "AGREGAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>

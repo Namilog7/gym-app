@@ -22,7 +22,7 @@ model Members {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(20)
   lastname   String   @db.VarChar(20)
-  email      String   @unique @db.VarChar(50)
+  email      String?  @unique @db.VarChar(50)
   problems   String?  @db.VarChar(250)
   paymentday DateTime
   payment    Payment  @default(ABONADO)
