@@ -55,12 +55,13 @@ export async function PUT(req: NextRequest) {
     const { name, lastname, payment, paymentday, email, problems, age }: Members = bodyparse;
 
     try {
-        const user = await prisma.members.update({
-            where: { email: email ?? "" },
-            data: { name, lastname, payment, paymentday, problems, age }
-        });
-
-        return NextResponse.json({ message: `Datos de ${user.name} actualizados` });
+        if (email) {
+            const user = await prisma.members.update({
+                where: { email },
+                data: { name, lastname, payment, paymentday, problems, age }
+            });
+        }
+        return NextResponse.json({ message: `Datos fueron actualizados` });
     } catch (error) {
         return NextResponse.json({ error: "Error al actualizar el miembro" }, { status: 500 });
     }
