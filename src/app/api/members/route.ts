@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
             return member;
         });
 
+        console.log(members)
         return NextResponse.json(members);
     } catch (error) {
         return NextResponse.json({ error: "Error al obtener miembros" }, { status: 500 });
