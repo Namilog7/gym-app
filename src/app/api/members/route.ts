@@ -5,23 +5,31 @@ import { NextResponse, NextRequest } from "next/server";
 // Método GET
 export async function GET(req: NextRequest) {
     try {
-        const membersPromise = await prisma.members.findMany();
-        const members = membersPromise.map(member => {
+        // Obtener todos los miembros
+        const members = await prisma.members.findMany();
+
+        // Actualizar el estado de cada miembro
+        const updatedMembers = members.map(member => {
+            if (!member.paymentday) {
+                return member; // Si no tiene una fecha de pago, se deja como está
+            }
+
             const today = new Date();
             const paymentDate = new Date(member.paymentday);
             const oneMonthLater = new Date(paymentDate);
             oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
-            if (today > oneMonthLater && member.payment === 'ABONADO') {
-                member.payment = 'VENCIDO';
-            }
-
-            return member;
+            // Cambiar el estado a 'VENCIDO' si corresponde
+            return {
+                ...member,
+                payment: today > oneMonthLater && member.payment === 'ABONADO' ? 'VENCIDO' : member.payment,
+            };
         });
 
-        console.log(members)
-        return NextResponse.json(members);
+        console.log(updatedMembers);
+        return NextResponse.json(updatedMembers);
     } catch (error) {
+        console.error("Error al obtener miembros:", error); // Log para depuración
         return NextResponse.json({ error: "Error al obtener miembros" }, { status: 500 });
     }
 }
