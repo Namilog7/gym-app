@@ -5,32 +5,22 @@ import { NextResponse, NextRequest } from "next/server";
 // Método GET
 export async function GET(req: NextRequest) {
     try {
-        // Obtener todos los miembros
-        const members = await prisma.members.findMany();
-        console.log(members)
-
-        // Actualizar el estado de cada miembro
-        const updatedMembers = members.map(member => {
-            if (!member.paymentday) {
-                return member; // Si no tiene una fecha de pago, se deja como está
-            }
-
+        const membersPromise = await prisma.members.findMany();
+        const members = membersPromise.map(member => {
             const today = new Date();
             const paymentDate = new Date(member.paymentday);
             const oneMonthLater = new Date(paymentDate);
             oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
-            // Cambiar el estado a 'VENCIDO' si corresponde
-            return {
-                ...member,
-                payment: today > oneMonthLater && member.payment === 'ABONADO' ? 'VENCIDO' : member.payment,
-            };
+            if (today > oneMonthLater && member.payment === 'ABONADO') {
+                member.payment = 'VENCIDO';
+            }
+
+            return member;
         });
 
-        console.log(updatedMembers);
-        return NextResponse.json(updatedMembers);
+        return NextResponse.json(members);
     } catch (error) {
-        console.error("Error al obtener miembros:", error); // Log para depuración
         return NextResponse.json({ error: "Error al obtener miembros" }, { status: 500 });
     }
 }
@@ -38,9 +28,10 @@ export async function GET(req: NextRequest) {
 // Método POST
 export async function POST(req: NextRequest) {
     const bodyparse = await req.json();
+    console.log(bodyparse); // Verifica si los datos son los esperados
     const { name, lastname, email, age, payment, paymentday, problems }: Members = bodyparse;
 
-    if (![name, lastname, email, age].every(Boolean)) {
+    if (![name, lastname, age].every(Boolean)) {
         return NextResponse.json({ message: "Complete los campos" });
     }
 
