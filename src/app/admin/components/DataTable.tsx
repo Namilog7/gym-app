@@ -51,8 +51,10 @@ export default function DataTable() {
         if (stateReload) {
             fetch("https://gym-app-rust-sigma.vercel.app/api/members")
                 .then((data) => data.json())
-                .then((response) => setRows1(response)) // Asegúrate de que los datos sean del tipo Member
-                .then(() => setStateReload(false)) // No necesitamos el segundo 'response'
+                .then((response) => {
+                    setRows1(response); // Actualiza el estado de `rows1`
+                    setStateReload(false); // Reinicia el `stateReload`
+                })
                 .catch((error) => window.alert(`Algo salió mal: ${error}`));
         }
         console.log(stateReload);
