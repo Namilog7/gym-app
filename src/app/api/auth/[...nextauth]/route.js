@@ -15,6 +15,7 @@ const authOptions = {
             if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === 'fedesalva78@gmail.com' || profile.email === 'gonzalodavidbaeznoriega@gmail.com' || profile.email == "lautaroledesma823@gmail.com") {
                 return true;
             }
+
             return false;
         },
         async redirect({ url, baseUrl }) {
