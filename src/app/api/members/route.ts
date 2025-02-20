@@ -71,6 +71,9 @@ export async function DELETE(req: NextRequest) {
     const { email, name }: Members = bodyparse;
 
     try {
+        if (!email) {
+            throw new Error("El email es obligatorio para eliminar un miembro.");
+        }
         await prisma.members.delete({ where: { email } });
         return NextResponse.json({ message: `Datos de ${name} eliminados` });
     } catch (error) {
