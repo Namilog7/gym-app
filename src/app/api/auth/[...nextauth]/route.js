@@ -12,7 +12,7 @@ const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === 'fedesalva78@gmail.com' || profile.email === 'gonzalodavidbaeznoriega@gmail.com') {
+            if (profile.email === 'chazarretamaximiliano7@gmail.com' || profile.email === 'fedesalva78@gmail.com' || profile.email === 'gonzalodavidbaeznoriega@gmail.com' || profile.email == "lautaroledesma823@gmail.com") {
                 return true;
             }
             return false;
