@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
 
     try {
         const user = await prisma.members.update({
-            where: { email },
+            where: { email: email ?? "" },
             data: { name, lastname, payment, paymentday, problems, age }
         });
 
