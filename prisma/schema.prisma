@@ -27,6 +27,7 @@ model Members {
   paymentday DateTime
   payment    Payment  @default(ABONADO)
   age        Int
+  telefono   String   @unique
 }
 
 model Products {

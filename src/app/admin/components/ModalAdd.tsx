@@ -10,7 +10,8 @@ type Inputs = {
     paymentday: Date,
     payment: boolean,
     age: string,
-    problems: string
+    problems: string,
+    telefono: string
 }
 
 type AlertProps = {
@@ -46,7 +47,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
         if (!Number.isNaN(age)) ageDto = parseInt(age);
         else window.alert("Envie datos correctos");
 
-        fetch("https://gym-app-rust-sigma.vercel.app/api/members", {
+        fetch("https://gym-app-rust-sigma.vercel.app//api/members", {
             method: method,
             body: JSON.stringify({ ...data, paymentday: day, age: ageDto })
         })
@@ -88,6 +89,8 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 {errors.lastname && <span style={{ color: "red" }}>Complete correctamente los campos</span>}
                 <label htmlFor="email"></label>
                 <input className="inputs" type="email" id="email" placeholder="Email" defaultValue={title !== "AGREGAR" ? member?.email ?? "" : ""} {...register("email", { required: false })} />
+                <label htmlFor="telefono"></label>
+                <input className="inputs" type="" id="telefono" placeholder="Telefono" defaultValue={title !== "AGREGAR" ? member?.telefono ?? "" : ""} {...register("telefono", { required: true })} />
                 <label htmlFor="paymentday"></label>
                 <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title !== "AGREGAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>

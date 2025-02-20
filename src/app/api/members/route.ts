@@ -29,18 +29,18 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     const bodyparse = await req.json();
     console.log(bodyparse); // Verifica si los datos son los esperados
-    const { name, lastname, email, age, payment, paymentday, problems }: Members = bodyparse;
+    const { name, lastname, email, age, payment, paymentday, problems, telefono }: Members = bodyparse;
 
-    if (![name, lastname, age].every(Boolean)) {
+    if (![name, lastname, age, telefono].every(Boolean)) {
         return NextResponse.json({ message: "Complete los campos" });
     }
 
     try {
-        const findUserEmail = await prisma.members.findFirst({ where: { email } });
+        const findUserEmail = await prisma.members.findFirst({ where: { telefono } });
         if (findUserEmail) return NextResponse.json({ message: "Ya está registrado ese miembro" });
 
         const user = await prisma.members.create({
-            data: { name, lastname, email, payment, paymentday, problems, age }
+            data: { name, lastname, email, payment, paymentday, problems, age, telefono }
         });
 
         return NextResponse.json({ message: `Se ha creado con éxito el miembro ${user.name}` });
@@ -52,15 +52,14 @@ export async function POST(req: NextRequest) {
 // Método PUT
 export async function PUT(req: NextRequest) {
     const bodyparse = await req.json();
-    const { name, lastname, payment, paymentday, email, problems, age }: Members = bodyparse;
+    const { name, lastname, payment, paymentday, email, problems, age, telefono }: Members = bodyparse;
 
     try {
-        if (email) {
-            const user = await prisma.members.update({
-                where: { email },
-                data: { name, lastname, payment, paymentday, problems, age }
-            });
-        }
+
+        const user = await prisma.members.update({
+            where: { telefono },
+            data: { name, lastname, payment, paymentday, problems, age, telefono, email }
+        });
         return NextResponse.json({ message: `Datos fueron actualizados` });
     } catch (error) {
         return NextResponse.json({ error: "Error al actualizar el miembro" }, { status: 500 });
@@ -70,13 +69,13 @@ export async function PUT(req: NextRequest) {
 // Método DELETE
 export async function DELETE(req: NextRequest) {
     const bodyparse = await req.json();
-    const { email, name }: Members = bodyparse;
+    const { email, name, telefono }: Members = bodyparse;
 
     try {
-        if (!email) {
-            throw new Error("El email es obligatorio para eliminar un miembro.");
+        if (!telefono) {
+            throw new Error("El telefono es obligatorio para eliminar un miembro.");
         }
-        await prisma.members.delete({ where: { email } });
+        await prisma.members.delete({ where: { telefono } });
         return NextResponse.json({ message: `Datos de ${name} eliminados` });
     } catch (error) {
         return NextResponse.json({ error: "Error al eliminar el miembro" }, { status: 500 });

@@ -11,6 +11,7 @@ const columns: GridColDef[] = [
     { field: "payment", headerName: "Membresia", width: 130 },
     { field: "email", headerName: "Email", width: 160 },
     { field: "paymentday", headerName: "Fecha membresia", width: 180 },
+    { field: "telefono", headerName: "Telefono" },
     {
         field: 'age',
         headerName: 'Edad',
@@ -31,6 +32,7 @@ interface Member {
     paymentday: Date;
     payment: "ABONADO" | "VENCIDO"; // Suponiendo que 'payment' es un string
     age: number;
+    telefono: string
 }
 
 export default function DataTable() {
@@ -49,7 +51,7 @@ export default function DataTable() {
 
     React.useEffect(() => {
         if (stateReload) {
-            fetch("https://gym-app-rust-sigma.vercel.app/api/members")
+            fetch("https://gym-app-rust-sigma.vercel.app//api/members")
                 .then((data) => data.json())
                 .then((response) => {
                     setRows1(response); // Actualiza el estado de `rows1`
