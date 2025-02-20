@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
     try {
         // Obtener todos los miembros
         const members = await prisma.members.findMany();
+        console.log(members)
 
         // Actualizar el estado de cada miembro
         const updatedMembers = members.map(member => {
