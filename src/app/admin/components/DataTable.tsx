@@ -49,7 +49,7 @@ export default function DataTable() {
 
     React.useEffect(() => {
         if (stateReload) {
-            fetch("http://localhost:3000/api/members")
+            fetch("https://gym-app-rust-sigma.vercel.app/api/members")
                 .then((data) => data.json())
                 .then((response) => setRows1(response)) // Asegúrate de que los datos sean del tipo Member
                 .then(() => setStateReload(false)) // No necesitamos el segundo 'response'
