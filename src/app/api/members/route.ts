@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ message: `Se ha creado con éxito el miembro ${user.name}` });
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ error: "Error al crear el miembro" }, { status: 500 });
     }
 }
