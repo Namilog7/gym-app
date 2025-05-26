@@ -6,20 +6,22 @@ import { NextResponse, NextRequest } from "next/server";
 export async function GET(req: NextRequest) {
     try {
         const membersPromise = await prisma.members.findMany();
-        const members = membersPromise.map(member => {
+        for (const member of membersPromise) {
             const today = new Date();
             const paymentDate = new Date(member.paymentday);
             const oneMonthLater = new Date(paymentDate);
             oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
             if (today > oneMonthLater && member.payment === 'ABONADO') {
+                await prisma.members.update({
+                    where: { id: member.id },
+                    data: { payment: 'VENCIDO' }
+                });
                 member.payment = 'VENCIDO';
             }
+        }
 
-            return member;
-        });
-
-        return NextResponse.json(members);
+        return NextResponse.json(membersPromise);
     } catch (error) {
         return NextResponse.json({ error: "Error al obtener miembros" }, { status: 500 });
     }
