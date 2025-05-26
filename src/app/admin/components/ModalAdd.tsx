@@ -49,7 +49,12 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
 
         fetch("https://gym-app-rust-sigma.vercel.app/api/members", {
             method: method,
-            body: JSON.stringify({ ...data, paymentday: day, age: ageDto })
+            body: JSON.stringify({
+                ...data,
+                paymentday: day,
+                age: ageDto,
+                payment: data.payment.toUpperCase()
+            })
         })
             .then((data) => data.json())
             .then((response) => setShowAlert({ isView: true, info: response.message }))

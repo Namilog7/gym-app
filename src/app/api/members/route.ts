@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 // Método PUT
 export async function PUT(req: NextRequest) {
     const bodyparse = await req.json();
-    const { name, lastname, payment, paymentday, email, problems, age, telefono }: Members = bodyparse;
+    const { name, lastname, payment, paymentday, email, problems, age, telefono } = bodyparse;
 
     try {
 
@@ -62,6 +62,9 @@ export async function PUT(req: NextRequest) {
             data: { name, lastname, payment, paymentday, problems, age, telefono, email }
         });
         console.log(user, { name, lastname, payment, paymentday, problems, age, telefono, email })
+        if (payment !== "ABONADO" && payment !== "VENCIDO") {
+            return NextResponse.json({ message: "Estado de pago inválido" }, { status: 400 });
+        }
         return NextResponse.json({ message: `Datos fueron actualizados` });
     } catch (error) {
         return NextResponse.json({ error: "Error al actualizar el miembro" }, { status: 500 });
