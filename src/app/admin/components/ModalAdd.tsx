@@ -43,11 +43,11 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
         const { age, paymentday } = data;
         const day = new Date(paymentday).toISOString();
         let ageDto;
-        console.log(method);
+        console.log(data);
         if (!Number.isNaN(age)) ageDto = parseInt(age);
         else window.alert("Envie datos correctos");
 
-        fetch("https://gym-app-rust-sigma.vercel.app//api/members", {
+        fetch("https://gym-app-rust-sigma.vercel.app/api/members", {
             method: method,
             body: JSON.stringify({ ...data, paymentday: day, age: ageDto })
         })
