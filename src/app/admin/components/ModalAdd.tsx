@@ -8,7 +8,7 @@ type Inputs = {
     lastname: string,
     email: string,
     paymentday: Date,
-    payment: boolean,
+    payment: "ABONADO" | "VENCIDO",
     age: string,
     problems: string,
     telefono: string
@@ -95,7 +95,7 @@ export const ModalAdd: React.FC<ModalProps> = ({ title, member, setShowAlert, se
                 <input className="inputs" type="datetime-local" id="paymentday" placeholder="Fecha Abonada" defaultValue={title !== "AGREGAR" ? day : ""} {...register("paymentday", { required: true })} />
                 <label htmlFor="payment"></label>
                 <select id="payment" defaultValue={title !== "AGREGAR" ? member?.payment : ""} {...register("payment", { required: true })}>
-                    <option value="" selected disabled>Estado Membresia</option>
+                    <option value="" disabled>Estado Membresia</option>
                     <option value="ABONADO">Abonado</option>
                     <option value="VENCIDO">Vencido</option>
                 </select>
