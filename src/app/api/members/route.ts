@@ -61,6 +61,7 @@ export async function PUT(req: NextRequest) {
             where: { telefono },
             data: { name, lastname, payment, paymentday, problems, age, telefono, email }
         });
+        console.log(user, { name, lastname, payment, paymentday, problems, age, telefono, email })
         return NextResponse.json({ message: `Datos fueron actualizados` });
     } catch (error) {
         return NextResponse.json({ error: "Error al actualizar el miembro" }, { status: 500 });
