@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
             if (today > oneMonthLater && member.payment === 'ABONADO') {
                 await prisma.members.update({
                     where: { id: member.id },
-                    data: { payment: 'VENCIDO' }
+                    data: { payment: 'VENCIDO', paymentday: new Date() }
                 });
                 member.payment = 'VENCIDO';
             }
@@ -55,23 +55,27 @@ export async function POST(req: NextRequest) {
 // Método PUT
 export async function PUT(req: NextRequest) {
     const bodyparse = await req.json();
-    const { name, lastname, payment, paymentday, email, problems, age, telefono } = bodyparse;
+    let { name, lastname, payment, paymentday, email, problems, age, telefono } = bodyparse;
 
     try {
+        // Si el nuevo estado es "ABONADO", ponemos la fecha actual como fecha de pago
+        if (payment === 'ABONADO') {
+            paymentday = new Date(); // <-- clave
+        }
 
         const user = await prisma.members.update({
             where: { telefono },
             data: { name, lastname, payment, paymentday, problems, age, telefono, email }
         });
-        console.log(user, { name, lastname, payment, paymentday, problems, age, telefono, email })
-        if (payment !== "ABONADO" && payment !== "VENCIDO") {
-            return NextResponse.json({ message: "Estado de pago inválido" }, { status: 400 });
-        }
+
+        console.log(user);
         return NextResponse.json({ message: `Datos fueron actualizados` });
     } catch (error) {
+        console.error(error);
         return NextResponse.json({ error: "Error al actualizar el miembro" }, { status: 500 });
     }
 }
+
 
 // Método DELETE
 export async function DELETE(req: NextRequest) {
